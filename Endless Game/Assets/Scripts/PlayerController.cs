@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float forwardSpeed;
     int desiredLane = 1;
     [SerializeField] float laneDistance = 4;
+    [SerializeField] float jumpForce;
+    [SerializeField] float Gravity = -20;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -18,6 +20,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         direction.z = forwardSpeed;
+
+
+        if (controller.isGrounded)
+        {
+            //direction.y = -1;
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Jump();
+            }
+        }
+        else
+        {
+            direction.y += Gravity * Time.deltaTime;
+
+        }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -57,5 +74,10 @@ public class PlayerController : MonoBehaviour
     {
         controller.Move(direction * Time.fixedDeltaTime);
 
+    }
+
+    void Jump()
+    {
+        direction.y = jumpForce;
     }
 }

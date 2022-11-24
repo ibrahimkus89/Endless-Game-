@@ -327,8 +327,8 @@ GameObject:
   - component: {fileID: 1177150711}
   - component: {fileID: 1177150710}
   - component: {fileID: 1177150709}
-  - component: {fileID: 1177150708}
   - component: {fileID: 1177150707}
+  - component: {fileID: 1177150708}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -367,7 +367,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 5
-  laneDistance: 2.5
+  laneDistance: 2
+  jumpForce: 12
+  Gravity: -20
 --- !u!136 &1177150709
 CapsuleCollider:
   m_ObjectHideFlags: 0
