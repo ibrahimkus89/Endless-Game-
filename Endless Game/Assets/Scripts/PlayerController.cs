@@ -19,13 +19,17 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
+        //if (!PlayerManager.isGameStarted)
+        //{
+        //    return;
+        //}
         direction.z = forwardSpeed;
 
 
         if (controller.isGrounded)
         {
             //direction.y = -1;
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (SwipeManager.swipeUp)
             {
                 Jump();
             }
@@ -36,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (SwipeManager.swipeRight)
         {
             desiredLane++;
 
@@ -46,7 +50,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (SwipeManager.swipeLeft)
         {
             desiredLane--;
 
@@ -89,6 +93,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!PlayerManager.isGameStarted)
+        {
+            return;
+        }
         controller.Move(direction * Time.fixedDeltaTime);
 
     }
