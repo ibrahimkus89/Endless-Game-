@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float laneDistance = 4;
     [SerializeField] float jumpForce;
     [SerializeField] float Gravity = -20;
+
+    public Animator animator;
+    public bool isGrounded;
+    public LayerMask groundLayer;
+    public Transform groundcheck;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -19,13 +24,15 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        //if (!PlayerManager.isGameStarted)
-        //{
-        //    return;
-        //}
+        if (!PlayerManager.isGameStarted)
+        {
+            return;
+        }
+        animator.SetBool("isGameStarted",true);
         direction.z = forwardSpeed;
 
-
+        isGrounded = Physics.CheckSphere(groundcheck.position,0.15f,groundLayer);
+        animator.SetBool("isGrounded",isGrounded);
         if (controller.isGrounded)
         {
             //direction.y = -1;

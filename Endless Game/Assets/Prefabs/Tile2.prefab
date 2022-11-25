@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 388133840995419346}
   - component: {fileID: 2487705419041468440}
   - component: {fileID: 3839194729633103265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
