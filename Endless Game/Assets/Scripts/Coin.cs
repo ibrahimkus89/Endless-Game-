@@ -22,8 +22,8 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            FindObjectOfType<AudioManager>().PlaySound("Coin");
             PlayerManager.numberOfCoins++;
-            Debug.Log("Coins:"+ PlayerManager.numberOfCoins);
             Destroy(gameObject);
         }
     }
