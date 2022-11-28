@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public LayerMask groundLayer;
     public Transform groundcheck;
+    [SerializeField] private float maxSpeed;
+    private bool isSliding = false;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -28,6 +31,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+        // Increase speed
+        if (forwardSpeed < maxSpeed)
+        {
+          forwardSpeed += 0.1f * Time.deltaTime;
+
+        }
+
         animator.SetBool("isGameStarted",true);
         direction.z = forwardSpeed;
 
@@ -47,6 +57,11 @@ public class PlayerController : MonoBehaviour
 
         }
 
+
+        if (SwipeManager.swipeDown && !isSliding)
+        {
+            StartCoroutine(Slide());
+        }
         if (SwipeManager.swipeRight)
         {
             desiredLane++;
@@ -119,5 +134,20 @@ public class PlayerController : MonoBehaviour
         {
             PlayerManager.gameOver = true;
         }
+    }
+
+    IEnumerator Slide()
+    {
+        isSliding = true;
+        animator.SetBool("isSliding",true);
+        controller.center = new Vector3(0, -0.5f, 0);
+        controller.height = 1;
+
+         yield return new  WaitForSeconds(1.3f);
+
+         controller.center = new Vector3(0, 0, 0);
+         controller.height = 2;
+         animator.SetBool("isSliding",false);
+         isSliding=false;
     }
 }
