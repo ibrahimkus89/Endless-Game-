@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,11 +10,14 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject startingText;
 
     public static bool isGameStarted;
+    public static int numberOfCoins;
+    [SerializeField] private TextMeshProUGUI coinsText;
     void Start()
     {
         gameOver = false;
         Time.timeScale = 1;
         isGameStarted = false;
+        numberOfCoins = 0;
     }
 
     
@@ -25,7 +29,8 @@ public class PlayerManager : MonoBehaviour
             gameoverPanel.SetActive(true);
         }
 
-        if (SwipeManager.tap)
+        coinsText.text = "Coins: " + numberOfCoins;
+        if (SwipeManager.tap && !isGameStarted)
         {
             isGameStarted = true;
             Destroy(startingText);
